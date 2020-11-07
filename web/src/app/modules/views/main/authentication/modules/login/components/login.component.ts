@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Key } from 'src/app/util/keycode';
 import { User } from '../../../../../../../model/User';
 import { NavigatorService } from '../../../../../../navigation/modules/navigator/services/navigator.service';
 import { AuthenticationService } from '../../auth/services/authentication.service';
@@ -72,5 +73,17 @@ export class Login implements OnInit {
     }
     public get isErrorLoggedOut(): boolean {
         return this.auth.errorLoggedOut;
+    }
+    public loginKey(event: KeyboardEvent, shouldToggle?: boolean): void {
+        if ([Key.ENTER].indexOf(event.keyCode) >= 0) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        switch (event.keyCode) {
+            case Key.ENTER:
+                this.authenticate();
+                break;
+        }
     }
 }
